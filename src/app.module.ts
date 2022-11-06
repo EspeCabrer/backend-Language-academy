@@ -10,8 +10,8 @@ import { CourseModule } from './course/course.module';
 import { Student } from 'src/student/entities/student.entity';
 import { Course } from './course/entities/course.entity';
 import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
-import { User } from './user/entities/user.entity';
+import { UserModule } from './auth/user/user.module';
+import { User } from './auth/user/entities/user.entity';
 
 const dbConfig: SqliteConnectionOptions = {
   type: 'sqlite',
