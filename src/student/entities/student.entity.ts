@@ -1,9 +1,11 @@
+import { Course } from "src/course/entities/course.entity";
 import {
   PrimaryGeneratedColumn,
   Column,
   Entity,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToMany,
 } from "typeorm";
 
 @Entity()
@@ -16,6 +18,9 @@ export class Student {
 
   @Column({ nullable: false })
   lastName: string;
+
+  @ManyToMany(() => Course)
+  students: Course[];
 
   @CreateDateColumn()
   createdAt: Date;

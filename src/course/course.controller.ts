@@ -1,9 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { CourseService } from './course.service';
-import { CreateCourseDto } from './dto/create-course.dto';
-import { UpdateCourseDto } from './dto/update-course.dto';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
+import { CourseService } from "./course.service";
+import { CreateCourseDto } from "./dto/create-course.dto";
+import { UpdateCourseDto } from "./dto/update-course.dto";
 
-@Controller('course')
+@ApiTags("course")
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
+@Controller("course")
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}
 
@@ -17,18 +29,23 @@ export class CourseController {
     return this.courseService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
+  @Get("student/:id")
+  findByStudent(@Param("id") id: string) {
+    return this.courseService.findByStudent(id);
+  }
+
+  @Get(":id")
+  findOne(@Param("id") id: string) {
     return this.courseService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
+  @Patch(":id")
+  update(@Param("id") id: string, @Body() updateCourseDto: UpdateCourseDto) {
     return this.courseService.update(+id, updateCourseDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @Delete(":id")
+  remove(@Param("id") id: string) {
     return this.courseService.remove(+id);
   }
 }

@@ -1,27 +1,36 @@
-import { Student } from 'src/student/entities/student.entity';
-import { Teacher } from 'src/teacher/entities/teacher.entity';
-import { PrimaryGeneratedColumn,Column,Entity,CreateDateColumn,UpdateDateColumn, ManyToMany, ManyToOne, JoinTable, Unique } from 'typeorm';
+import { Student } from "src/student/entities/student.entity";
+import { Teacher } from "src/teacher/entities/teacher.entity";
+import {
+  PrimaryGeneratedColumn,
+  Column,
+  Entity,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToMany,
+  ManyToOne,
+  JoinTable,
+  Unique,
+} from "typeorm";
 
 @Entity()
-@Unique(['name'])
+@Unique(["name"])
 export class Course {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  @Column({ nullable: false })
+  name: string;
 
-    @Column({ nullable: false })
-    name: string;
+  @ManyToOne(() => Teacher)
+  teacher: Teacher;
 
-    @ManyToOne(() => Teacher)
-    teacher: Teacher;
+  @ManyToMany(() => Student)
+  @JoinTable()
+  students: Student[];
 
-    @ManyToMany(() => Student)
-    @JoinTable()
-    students: Student[];
+  @CreateDateColumn()
+  createdAt: Date;
 
-    @CreateDateColumn()
-    createdAt: Date;
-
-    @UpdateDateColumn()
-    updtedAt: String
+  @UpdateDateColumn()
+  updtedAt: string;
 }
