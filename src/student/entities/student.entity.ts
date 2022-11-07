@@ -6,6 +6,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToMany,
+  JoinTable,
 } from "typeorm";
 
 @Entity()
@@ -19,8 +20,10 @@ export class Student {
   @Column({ nullable: false })
   lastName: string;
 
-  @ManyToMany(() => Course)
-  students: Course[];
+  @ManyToMany(() => Course, (course) => course.students, {
+    cascade: true,
+  })
+  courses: Course[];
 
   @CreateDateColumn()
   createdAt: Date;

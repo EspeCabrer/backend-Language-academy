@@ -24,7 +24,7 @@ export class Course {
   @ManyToOne(() => Teacher)
   teacher: Teacher;
 
-  @ManyToMany(() => Student)
+  @ManyToMany(() => Student, (student) => student.courses)
   @JoinTable()
   students: Student[];
 
@@ -32,5 +32,5 @@ export class Course {
   createdAt: Date;
 
   @UpdateDateColumn()
-  updtedAt: string;
+  updatedAt: string;
 }

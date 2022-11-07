@@ -13,6 +13,7 @@ import { CreateStudentDto } from "./dto/create-student.dto";
 import { UpdateStudentDto } from "./dto/update-student.dto";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { AddCourseToStudentDto } from "./dto/addCourse-student-dto";
 
 @ApiTags("student")
 @ApiBearerAuth()
@@ -24,6 +25,11 @@ export class StudentController {
   @Post()
   create(@Body() createStudentDto: CreateStudentDto) {
     return this.studentService.create(createStudentDto);
+  }
+
+  @Post("add-course")
+  addCourse(@Body() addCourseToStudentDto: AddCourseToStudentDto) {
+    return this.studentService.addCourse(addCourseToStudentDto);
   }
 
   @Get()
