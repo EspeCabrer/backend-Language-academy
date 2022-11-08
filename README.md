@@ -1,38 +1,22 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Language academy backend
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Proyecto de backend donde se desarrolla una API para una academia de idiomas.
 
-## Description
+## Herramientas utilizadas destacadas
+- NestJs, NodesJs, Typescript
+- SQLite
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+## Inicialización
+
+### Instalación
 
 ```bash
 $ npm install
 ```
 
-## Running the app
+### Inicializa la app
 
 ```bash
 # development
@@ -41,8 +25,6 @@ $ npm run start
 # watch mode
 $ npm run start:dev
 
-# production mode
-$ npm run start:prod
 ```
 
 ## Test
@@ -50,21 +32,41 @@ $ npm run start:prod
 ```bash
 # unit tests
 $ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
 
+## Documentación
 
-## Swagger
+Swagger: http://localhost:3000/api
 
-Swagger docs are available under `/api`. The generation of the documents depend upon the metadata extraction during build time. Therefore, execute `npm run build` to ensure that the docs are at its latest version.
+Se construye un modelo de base de datos relacional con SQLite con la siguiente estructura donde se han insertado varios valores:
 
-http://localhost:3000/api
+![Alt text](./docs/UML.png)
+
+La API desarrollada permite:
+
+Auth/User:
+- Registro de nuevo usuario
+- Login
+
+Estudiante: 
+  - Ver un estudiante dado un id
+  - Ver todos
+  - Editar 
+  - Borrar
+  - Crear
+  - Añadir a un curso
+
+Profesor: 
+- Crear 
+- Ver todos
+- Editar
+- Borrar
+
+Cursos: 
+- Ver todos
+- Buscar los cursos que tiene un estudiante
 
 
-Test
-Inscribir a un alumno a un curso
+Todos los endpoints están protegidos usando JWT excepto los referentes a la 
+autentificación.
+
