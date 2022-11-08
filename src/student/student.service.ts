@@ -35,6 +35,14 @@ export class StudentService {
     return this.studentRepository.save(student);
   }
 
+  async findById(id: number) {
+    return await this.studentRepository
+      .createQueryBuilder("student")
+      .leftJoinAndSelect("student.courses", "Course")
+      .where("student.id = :id", { id })
+      .getOne();
+  }
+
   findAll() {
     return this.studentRepository.find();
   }

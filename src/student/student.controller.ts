@@ -32,6 +32,11 @@ export class StudentController {
     return this.studentService.addCourse(addCourseToStudentDto);
   }
 
+  @Get(":id")
+  getById(@Param("id") id) {
+    return this.studentService.findById(id);
+  }
+
   @Get()
   findAll() {
     return this.studentService.findAll();

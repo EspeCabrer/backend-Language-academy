@@ -12,8 +12,8 @@ export class TeacherService {
     private teacherRepository: Repository<Teacher>
   ) {}
 
-  create(createTeacherDto: CreateTeacherDto) {
-    const newTeacher = this.teacherRepository.create(createTeacherDto);
+  create(createTeacherDto: CreateTeacherDto): Promise<Teacher> {
+    const newTeacher: Teacher = this.teacherRepository.create(createTeacherDto);
     return this.teacherRepository.save(newTeacher);
   }
 
@@ -21,19 +21,18 @@ export class TeacherService {
     return this.teacherRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} teacher`;
-  }
-
-  async update(id: number, updateTeacherDto: UpdateTeacherDto) {
-    const teacher = await this.teacherRepository.findOneBy({ id: id });
+  async update(
+    id: number,
+    updateTeacherDto: UpdateTeacherDto
+  ): Promise<Teacher> {
+    const teacher: Teacher = await this.teacherRepository.findOneBy({ id: id });
     teacher.firstName = updateTeacherDto.firstName;
     teacher.lastName = updateTeacherDto.lastName;
     return this.teacherRepository.save(teacher);
   }
 
-  async remove(id: number) {
-    const teacher = await this.teacherRepository.findOneBy({ id: id });
+  async remove(id: number): Promise<Teacher> {
+    const teacher: Teacher = await this.teacherRepository.findOneBy({ id: id });
     return this.teacherRepository.remove(teacher);
   }
 }

@@ -3,10 +3,22 @@ import { SigninDto } from "./dto/signin.dto";
 import { hash, compare } from "bcrypt";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
-import { User } from "src/auth/user/entities/user.entity";
 import { LoginDto } from "./dto/login.dto";
 import { JwtService } from "@nestjs/jwt";
-import { UserService } from "src/auth/user/user.service";
+import { User } from "./user/entities/user.entity";
+import { UserService } from "./user.service";
+
+interface UserInfo {
+  id: number;
+  email: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface AuthUser {
+  user: UserInfo;
+  token: string;
+}
 
 @Injectable()
 export class AuthService {
@@ -17,7 +29,7 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
-  async signin(signinDto: SigninDto) {
+  async signin(signinDto: SigninDto): Promise<AuthUser> {
     const { password, email } = signinDto;
     const existUser = await this.userService.findByEmail(email);
     if (existUser)
@@ -29,12 +41,12 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    this.userRepository.save(newUser);
+    await this.userRepository.save(newUser);
 
     return this.getDataObj(newUser);
   }
 
-  async login(loginAuthDto: LoginDto) {
+  async login(loginAuthDto: LoginDto): Promise<AuthUser> {
     const { email, password } = loginAuthDto;
     const user = await this.userService.findByEmail(email);
     if (!user)
@@ -47,11 +59,16 @@ export class AuthService {
     }
   }
 
+  async checkIfEmailExists(email) {
+    const existUser = await this.userService.findByEmail(email);
+    return existUser ? true : false;
+  }
+
   async isSamePassword(user: User, inputPassword: string): Promise<boolean> {
     return await compare(inputPassword, user.password);
   }
 
-  getDataObj(user: User) {
+  getDataObj(user: User): AuthUser {
     const payload = { id: user.id, email: user.email };
     const token = this.jwtService.sign(payload);
 

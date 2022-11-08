@@ -64,3 +64,7 @@ $ npm run test:cov
 Swagger docs are available under `/api`. The generation of the documents depend upon the metadata extraction during build time. Therefore, execute `npm run build` to ensure that the docs are at its latest version.
 
 http://localhost:3000/api
+
+
+Test
+Inscribir a un alumno a un curso
